@@ -67,3 +67,24 @@ The project has promising avenues for further development:
 Higher Accuracy: The system's accuracy can be further improved for partial and dense images.
 
 Multi-Camera Support: Integrating two or more IP cameras and merging their processed results can lead to better accuracy in denser classroom environments
+
+
+## How to Run
+
+1. Install dependencies (Raspberry Pi with a USB camera):
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Download `haarcascade_frontalface_default.xml` from the [OpenCV repo](https://github.com/opencv/opencv/tree/master/data/haarcascades) into a `data/` folder, and create an empty `dataset/` folder.
+3. Set the email settings as environment variables (use a Gmail app password):
+   ```bash
+   export ATTENDANCE_EMAIL="you@gmail.com"
+   export ATTENDANCE_EMAIL_PASSWORD="your-app-password"
+   export ATTENDANCE_REPORT_TO="teacher@example.com"
+   ```
+4. Run the three steps in order:
+   ```bash
+   python dataset.py      # capture face images for each student ID
+   python training.py     # train the recognizer (creates trainer.yml)
+   python recognition.py  # take attendance and email the report
+   ```
