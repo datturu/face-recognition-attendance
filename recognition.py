@@ -7,9 +7,12 @@ import time
 import os 
 import smtplib
 
+# Credentials come from environment variables, never hardcode them:
+#   ATTENDANCE_EMAIL, ATTENDANCE_EMAIL_PASSWORD (Gmail app password), ATTENDANCE_REPORT_TO
+
 email=smtplib.SMTP('smtp.gmail.com',587)
 email.starttls()
-email.login('devamunikanta1134@gmail.com','cHInnI@1904')
+email.login(os.environ['ATTENDANCE_EMAIL'], os.environ['ATTENDANCE_EMAIL_PASSWORD'])
 subject="Presenties and Absenties of final year"
 
 stop="Mon June 02 08:20:50 2021"
@@ -100,7 +103,7 @@ while True:
         print("Absenties:",abse)
         text="Presenties:{}\nAbsenties:{}".format(pre,abse)
         message="subject:{}\n\n{}".format(subject,text)
-        email.sendmail('devamunikanta1134@gmail.com','saileshcruzzer@gmail.com',message)
+        email.sendmail(os.environ['ATTENDANCE_EMAIL'], os.environ['ATTENDANCE_REPORT_TO'], message)
         email.quit()
         break
 
